@@ -11,17 +11,38 @@
     <h1 class="catalogue-title">Notre Collection</h1>
 </header>
 
+{# Conteneur pour les éléments de recherche et de filtre #}
 <div class="search-container">
+    {# Champ de recherche textuel pour filtrer par nom ou description de voiture #}
     <input type="text" id="search-bar" placeholder="Rechercher une voiture..." onkeyup="filterCards()">
+
+    {# Menu déroulant pour filtrer par type de carburant #}
+    <select id="filter-fuel" onchange="filterCards()">
+        <option value="">Tous les carburants</option>
+        <option value="essence">Essence</option>
+        <option value="diesel">Diesel</option>
+        <option value="electrique">Électrique</option>
+    </select>
+
+    {# Menu déroulant pour filtrer par année de fabrication #}
+    <select id="filter-year" onchange="filterCards()">
+        <option value="">Toutes les années</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+    </select>
 </div>
 
+{# Grille pour afficher les cartes de voitures #}
 <div class="cars-grid">
     {% for voiture in voitures %}
-    <div class="car-card">
+    <div class="car-card" data-fuel="{{ voiture.carburant }}" data-year="{{ voiture.annee }}">
         <img class="car-image" src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}">
         <div class="car-content">
             <h2 class="car-title">{{ voiture.description }}</h2>
             
+            {# Conteneur pour les statistiques de la voiture #}
             <div class="stat-container">
                 <div class="stat-label">
                     <span>Vitesse</span>
@@ -42,6 +63,7 @@
                 </div>
             </div>
             
+            {# Lien pour afficher les détails de la voiture #}
             <a href="{{ path('detailVoit', {'id': voiture.id}) }}" class="car-button">Découvrir</a>
         </div>
     </div>
@@ -50,6 +72,7 @@
 
 {% block javascripts %}
 <script>
+// Fonction pour ajouter une animation de chargement aux cartes de voitures
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.car-card');
     
@@ -59,13 +82,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Fonction pour filtrer les cartes de voitures en fonction des critères de recherche
 function filterCards() {
     const searchInput = document.getElementById('search-bar').value.toLowerCase();
+    const fuelFilter = document.getElementById('filter-fuel').value.toLowerCase();
+    const yearFilter = document.getElementById('filter-year').value.toLowerCase();
     const cards = document.querySelectorAll('.car-card');
     
     cards.forEach(card => {
         const cardText = card.textContent.toLowerCase();
-        const shouldShow = cardText.includes(searchInput);
+        const cardFuel = card.getAttribute('data-fuel').toLowerCase();
+        const cardYear = card.getAttribute('data-year').toLowerCase();
+        
+        const shouldShow = cardText.includes(searchInput) && 
+                          (fuelFilter === '' || cardFuel === fuelFilter) && 
+                          (yearFilter === '' || cardYear === yearFilter);
         
         if (shouldShow) {
             card.style.display = 'block';
@@ -77,15 +108,21 @@ function filterCards() {
 }
 </script>
 <style>
+/* Définition de l'animation de chargement */
 @keyframes fadeIn {
-    from {
+    0% {
         opacity: 0;
         transform: translateY(20px);
     }
-    to {
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Appliquer l'animation à la grille de voitures */
+.cars-grid {
+    animation: fadeIn 0.5s ease-out forwards;
 }
 </style>
 {% endblock %}
