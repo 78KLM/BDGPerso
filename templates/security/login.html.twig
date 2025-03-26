@@ -2,7 +2,9 @@
 
 {% block title %}Log in!{% endblock %}
     {% block stylesheets %}
+        {{ parent() }}
         <link rel="stylesheet" href="{{asset('css/logIn.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
     {% endblock %}
 
 {% block body %}
@@ -37,7 +39,7 @@
             </div>
         #}
         <p class="forgot-password"><a href="">Mot de passe oublié ?</a></p>
-        <p class="forgot-password"><a href="{{ path('app_register') }}">Vous avez deja un compte ? Connectez vous</a></p>
+        <p class="forgot-password"><a href="{{ path('app_register') }}">Vous n'avez pas de compte ? Inscrivez vous</a></p>
     </form>
 </div>
 {# {{path('app_forgot_password_request')}}  #}

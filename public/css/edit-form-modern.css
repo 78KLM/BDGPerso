@@ -1,0 +1,323 @@
+/* Styles modernes pour les formulaires d'u00e9dition */
+
+/* Styles globaux */
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+    padding-top: 100px; /* Espace pour la navbar */
+}
+
+/* Container principal */
+.edit-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto 60px;
+    background: linear-gradient(145deg, #1a1a1a, #222222);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+}
+
+/* En-tu00eate du formulaire */
+.form-header {
+    background: linear-gradient(90deg, #f4d03f, #d4ac0d);
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-header h1 {
+    margin: 0;
+    color: #121212;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Corps du formulaire */
+.form-body {
+    padding: 30px;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #f4d03f;
+    transition: all 0.3s ease;
+}
+
+/* Champs de saisie */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #f4d03f;
+    box-shadow: 0 0 10px rgba(244, 208, 63, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Champs de type file */
+.form-group input[type="file"] {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(244, 208, 63, 0.5);
+    cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+    border-color: #f4d03f;
+    background-color: rgba(244, 208, 63, 0.05);
+}
+
+/* Pru00e9visualisation d'image */
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Image actuelle */
+.current-image {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(244, 208, 63, 0.3);
+}
+
+.current-image p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #f4d03f;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.current-image img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.current-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Boutons d'action */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #f4d03f, #d4ac0d);
+    color: #121212;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #f1c40f, #f39c12);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
+}
+
+/* Icones dans les boutons */
+.btn i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+/* Checkbox et radio */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    accent-color: #f4d03f;
+}
+
+.form-check label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .edit-container {
+        width: 95%;
+        margin: 10px auto 40px;
+    }
+    
+    .form-header {
+        padding: 20px;
+    }
+    
+    .form-body {
+        padding: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animation de chargement */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 8px;
+}
+
+.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #f4d03f;
+    animation: spin 1s ease-in-out infinite;
+    z-index: 11;
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Styles spu00e9cifiques pour les messages d'erreur */
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Styles pour les messages de succu00e8s */
+.success-message {
+    background-color: rgba(46, 204, 113, 0.2);
+    border-left: 4px solid #2ecc71;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #2ecc71;
+}
+
+/* Styles pour les messages d'erreur */
+.error-alert {
+    background-color: rgba(231, 76, 60, 0.2);
+    border-left: 4px solid #e74c3c;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #e74c3c;
+}

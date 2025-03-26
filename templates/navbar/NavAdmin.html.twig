@@ -10,8 +10,27 @@
         <a href="{{ path('app_rasso') }}" class="nav-item">NOS EVENEMENTS</a>
         <a href="{{ path('app_contact') }}" class="nav-item">CONTACT</a>
     </div>
-    <div class="connexion mr-3">
-    <a href="{{ path('app_login') }}"><img src="{{asset('css/images/connexion.png')}}" class="co-img" width="45px" ></a>
+    <div class="login-container">
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('app_login') }}" class="login-btn">
+                <i class="fas fa-user-circle fa-2x"></i>
+                <span class="login-greeting">Connexion</span>
+            </a>
+        {% else %}
+            <div class="profile-dropdown" onclick="toggleProfileMenu()">
+                <div class="profile-preview">
+                    <i class="fas fa-user-check fa-2x"></i>
+                    <span class="user-email">{{ app.user.email }}</span>
+                    <i class="fas fa-chevron-down ml-2 profile-chevron"></i>
+                </div>
+                <div class="profile-menu">
+                    <a href="{{ path('app_logout') }}" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     </div>
     <div class="menu-toggle" onclick="toggleDropdown()">
         <div class="bar"></div>
@@ -19,9 +38,25 @@
         <div class="bar"></div>
     </div>
     <div class="dropdown-menu" id="dropdown-menu">
-        <a href="{{ path('app_admin_voitures_index') }}" class="dropdown-item">Admin voiture</a>
-        <a href="{{ path('app_admin_evenement_index') }}" class="dropdown-item">Admin event</a>
-        <a href="{{ path('app_admin_contact_index') }}" class="dropdown-item">Admin contact</a>
+        <div class="dropdown-header" onclick="toggleDropdown()">
+            <i class="fas fa-cog mr-2"></i>
+            Administration
+            <i class="fas fa-chevron-down ml-2 dropdown-chevron"></i>
+        </div>
+        <div class="dropdown-contentt">
+            <a href="{{ path('app_admin_voitures_index') }}" class="dropdown-item">
+                <i class="fas fa-car mr-2"></i>
+                Voitures
+            </a>
+            <a href="{{ path('app_admin_evenement_index') }}" class="dropdown-item">
+                <i class="fas fa-calendar mr-2"></i>
+                Evenements
+            </a>
+            <a href="{{ path('app_admin_contact_index') }}" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i>
+                Contacts
+            </a>
+        </div>
     </div>
 </nav>
 

@@ -31,6 +31,12 @@ class Voitures
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $image2;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $image3;
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private $annee;
 
@@ -54,9 +60,6 @@ class Voitures
 
     #[ORM\ManyToOne(inversedBy: 'voitures')]
     private ?Marque $marque = null;
-
-    #[ORM\ManyToOne(inversedBy: 'voitures')]
-    private ?Couleur $couleur = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $catVoitures = null;
@@ -129,6 +132,28 @@ class Voitures
     public function setImage(?string $image): self
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getImage2(): ?string
+    {
+        return $this->image2;
+    }
+
+    public function setImage2(?string $image2): self
+    {
+        $this->image2 = $image2;
+        return $this;
+    }
+
+    public function getImage3(): ?string
+    {
+        return $this->image3;
+    }
+
+    public function setImage3(?string $image3): self
+    {
+        $this->image3 = $image3;
         return $this;
     }
 
@@ -221,17 +246,6 @@ class Voitures
         return $this;
     }
 
-    public function getCouleur(): ?Couleur
-    {
-        return $this->couleur;
-    }
-
-    public function setCouleur(?Couleur $couleur): static
-    {
-        $this->couleur = $couleur;
-
-        return $this;
-    }
 
     public function getCatVoitures(): ?string
     {

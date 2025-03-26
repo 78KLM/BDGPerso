@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+// Le AdminContactController gère les fonctionnalités administratives liées aux messages de contact.
 #[Route('/admin/contact')]
 class AdminContactController extends AbstractController
 {

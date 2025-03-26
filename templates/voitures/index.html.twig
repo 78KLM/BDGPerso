@@ -1,51 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catalogue{% endblock %}
-
-{% block body %}
+{% block title %}Catalogue - BDG{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{asset('css/catalogue.css')}}">
+<link rel="stylesheet" href="{{asset('css/voitures.css')}}">
 {% endblock %}
+
+{% block body %}
+<header class="catalogue-header">
+    <h1 class="catalogue-title">Notre Collection</h1>
+</header>
 
 <div class="search-container">
     <input type="text" id="search-bar" placeholder="Rechercher une voiture..." onkeyup="filterCards()">
 </div>
 
-{% for voiture in voitures %}
-<div class="card">
-    <h2>{{ voiture.description }}</h2>
-    <img src="{{ asset(  voiture.image  ) }}" alt="Car Image"> {# il faut au plus vite ajouter les vrai image #} 
-    <div class="progress-bar">
-        <div style="width: 45%;"></div>
+<div class="cars-grid">
+    {% for voiture in voitures %}
+    <div class="car-card">
+        <img class="car-image" src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}">
+        <div class="car-content">
+            <h2 class="car-title">{{ voiture.description }}</h2>
+            
+            <div class="stat-container">
+                <div class="stat-label">
+                    <span>Vitesse</span>
+                    <span>{{ voiture.vitesse }} KM/H</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (voiture.vitesse/400)*100 }}%;"></div>
+                </div>
+            </div>
+            
+            <div class="stat-container">
+                <div class="stat-label">
+                    <span>Puissance</span>
+                    <span>{{ voiture.chevaux }} CH</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (voiture.chevaux/1000)*100 }}%;"></div>
+                </div>
+            </div>
+            
+            <a href="{{ path('detailVoit', {'id': voiture.id}) }}" class="car-button">Découvrir</a>
+        </div>
     </div>
-    <p>Speed: {{ voiture.vitesse }} KM/H</p>
-    <div class="progress-bar">
-        <div style="width: 80%;"></div>
-    </div>
-    <p>Horsepower: {{ voiture.chevaux }} CHV</p>
-    <a href="{{ path('detailVoit', {'id': voiture.id}) }}" class="button" style="text-decoration: none;">Learn More</a>
+    {% endfor %}
 </div>
-{% endfor %}
 
+{% block javascripts %}
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.car-card');
+    
+    cards.forEach((card, index) => {
+        card.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s forwards`;
+        card.style.opacity = '0';
+    });
+});
 
-//Laisser les commentaire c pour comprendre comment fonctionne la barre de recherche
-/**
- * Filters the displayed cards based on the search input.
- * @param {string} searchInput the search input string
- */
 function filterCards() {
     const searchInput = document.getElementById('search-bar').value.toLowerCase();
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.car-card');
+    
     cards.forEach(card => {
         const cardText = card.textContent.toLowerCase();
-        if (cardText.includes(searchInput)) {
-            card.style.display = 'flex';
+        const shouldShow = cardText.includes(searchInput);
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.5s ease-out forwards';
         } else {
             card.style.display = 'none';
         }
     });
 }
 </script>
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endblock %}
 {% endblock %}

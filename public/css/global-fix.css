@@ -1,0 +1,32 @@
+/* Fix global pour le problu00e8me de chevauchement avec la navbar */
+
+/* Ajout d'espace pour toutes les pages */
+body {
+    padding-top: 80px; /* Hauteur de la navbar */
+}
+
+/* Ajustement spu00e9cifique pour les sections hu00e9ro */
+.hero-section, 
+.catalogue-header {
+    margin-top: -80px; /* Annule le padding-top du body pour ces sections */
+}
+
+/* Ajustements pour les formulaires */
+.login-container {
+    padding-top: 20px;
+}
+
+/* S'assurer que les titres et contenus sont visibles */
+h1, h2, h3 {
+    margin-top: 20px;
+}
+
+/* Ajustements pour les sections de contenu */
+.content-section {
+    margin-top: 20px;
+}
+
+/* Assurer que les tables sont bien positionnu00e9es */
+.table-container {
+    margin-top: 20px;
+}

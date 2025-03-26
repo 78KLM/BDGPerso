@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+// Le AdminEvenementController gère les fonctionnalités administratives liées aux événements.
 #[Route('/admin/evenement')]
 class AdminEvenementController extends AbstractController
 {

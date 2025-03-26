@@ -9,7 +9,7 @@
 {% block body %}
 <section class="hero-section">
     <div class="image-container">
-        <img src="{{ asset('css/images/photoVoit/huracan1.jpeg') }}" alt="Lamborghini Huracan" class="background-image">
+        <img src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}" class="background-image">
         <div class="overlay">
             <span class="subtitle">DÉCOUVREZ</span>
             <h1 class="title">{{ voiture.description }}</h1>
@@ -19,7 +19,7 @@
 
 <section class="hero-section">
     <div class="image-container">
-        <img src="{{ asset('css/images/photoVoit/huracan2.jpg') }}" alt="Lamborghini Huracan" class="background-image">
+        <img src="{{ asset('css/images/photoVoit/' ~ voiture.image2) }}" alt="{{ voiture.description }}" class="background-image">
         <div class="overlay_stat">
         <span class="text_stat">Statistiques</span>
             <div class="stat">
@@ -49,7 +49,7 @@
 
 <section class="hero-section">
     <div class="image-container">
-        <img src="{{ asset('css/images/photoVoit/huracan3.jpg') }}" alt="Lamborghini Huracan" class="background-image">
+        <img src="{{ asset('css/images/photoVoit/' ~ voiture.image3) }}" alt="{{ voiture.description }}" class="background-image">
         <div class="overlay_config">
             <span class="subtitle">CONFIGURATION</span>
             <h1 class="title">Configurez votre {{ voiture.description }} : </h1>
@@ -57,7 +57,7 @@
     </div>
 
 <!-- Formulaire de personnalisation de voiture -->
-<div id="customization-form">
+<!-- <div id="customization-form">
     <h2>OPTION</h2>
     <p>sélectionner</p>
     <form>
@@ -97,7 +97,7 @@
             <label><input type="radio" name="pack" value="normal" onchange="updateSelections()"> Normal</label>
         </div>
     </form>
-</div>
+</div> -->
 
 <script>
     function updateSelections() {
