@@ -18,15 +18,15 @@
     </head>
     <body class="{% block body_class %}{% endblock %}">
         {# Inclusion conditionnelle de la navbar selon le rôle de l'utilisateur #}
-        {% if is_granted('ROLE_ADMIN') %}
-            {% include 'navbar/NavAdmin.html.twig' %}
-        {% endif %}
-        {% if is_granted('ROLE_USER') %}
-            {% include 'navbar/NavUser.html.twig' %}
+       {% if is_granted('ROLE_ADMIN') %}
+        {% include 'navbar/NavAdmin.html.twig' %}
+        {% elseif is_granted('ROLE_USER') %}
+        {% include 'navbar/NavUser.html.twig' %}
         {% else %}
-            {# Inclusion de la navbar publique pour les utilisateurs non authentifiés #}
-            {% include 'navbar/NavPublic.html.twig' %}
+        {# Inclusion de la navbar publique pour les utilisateurs non authentifiés #}
+        {% include 'navbar/publicNav.html.twig' %}
         {% endif %}
+
         
         {# Contenu principal de la page #}
         {% block body %}{% endblock %}
