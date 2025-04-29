@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue - BDG{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('css/voitures.css')}}">
+{% endblock %}
+
+{% block body %}
+<header class="catalogue-header">
+    <h1 class="catalogue-title">Notre Collection</h1>
+</header>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #007bff;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .pagination a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .pagination .current {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+    
+    .pagination a.disabled {
+        pointer-events: none;
+        color: #ddd;
+        border-color: #ddd;
+    }
+    </style>
+
+{# Conteneur pour les éléments de recherche et de filtre #}
+<div class="search-container">
+    {# Champ de recherche textuel pour filtrer par nom ou description de voiture #}
+    <input type="text" id="search-bar" placeholder="Rechercher une voiture..." onkeyup="filterCards()">
+
+
+</div>
+
+{# Grille pour afficher les cartes de voitures #}
+<div class="cars-grid">
+    {% for voiture in voitures %}
+    <div class="car-card" data-fuel="{{ voiture.carburant }}" data-year="{{ voiture.annee }}">
+        <img class="car-image" src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}">
+        <div class="car-content">
+            <h2 class="car-title">{{ voiture.description }}</h2>
+            <h2 class="car-title">{{ voiture.etat ? voiture.etat.type}}</h2>
+            
+            {# Conteneur pour les statistiques de la voiture #}
+            <div class="stat-container">
+                <div class="stat-label">
+                    <span>Vitesse</span>
+                    <span>{{ voiture.vitesse }} KM/H</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (voiture.vitesse/400)*100 }}%;"></div>
+                </div>
+            </div>
+            
+            <div class="stat-container">
+                <div class="stat-label">
+                    <span>Puissance</span>
+                    <span>{{ voiture.chevaux }} CH</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (voiture.chevaux/1000)*100 }}%;"></div>
+                </div>
+            </div>
+            
+            {# Lien pour afficher les détails de la voiture #}
+            <a href="{{ path('detailVoit', {'id': voiture.id}) }}" class="car-button">Découvrir</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{# Pagination #}
+<div class="pagination">
+    {% if currentPage > 1 %}
+        <a href="{{ path('app_voitures', { page: currentPage - 1, carburant: app.request.query.get('carburant'), annee: app.request.query.get('annee'), etat: app.request.query.get('etat') }) }}">Précédent</a>
+    {% else %}
+        <span class="disabled">Précédent</span>
+    {% endif %}
+
+    {% for i in 1..totalPages %}
+        {% if i == currentPage %}
+            <span class="current">{{ i }}</span>
+        {% else %}
+            <a href="{{ path('app_voitures', { page: i, carburant: app.request.query.get('carburant'), annee: app.request.query.get('annee'), etat: app.request.query.get('etat') }) }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if currentPage < totalPages %}
+        <a href="{{ path('app_voitures', { page: currentPage + 1, carburant: app.request.query.get('carburant'), annee: app.request.query.get('annee'), etat: app.request.query.get('etat') }) }}">Suivant</a>
+    {% else %}
+        <span class="disabled">Suivant</span>
+    {% endif %}
+</div>
+
+
+
+{% block javascripts %}
+<script>
+// Fonction pour ajouter une animation de chargement aux cartes de voitures
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.car-card');
+    
+    cards.forEach((card, index) => {
+        card.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s forwards`;
+        card.style.opacity = '0';
+    });
+});
+
+// Fonction pour filtrer les cartes de voitures en fonction des critères de recherche
+function filterCards() {
+    const searchInput = document.getElementById('search-bar').value.toLowerCase();
+    const fuelFilter = document.getElementById('filter-fuel').value.toLowerCase();
+    const yearFilter = document.getElementById('filter-year').value.toLowerCase();
+    const cards = document.querySelectorAll('.car-card');
+    
+    cards.forEach(card => {
+        const cardText = card.textContent.toLowerCase();
+        const cardFuel = card.getAttribute('data-fuel').toLowerCase();
+        const cardYear = card.getAttribute('data-year').toLowerCase();
+        
+        const shouldShow = cardText.includes(searchInput) && 
+                          (fuelFilter === '' || cardFuel === fuelFilter) && 
+                          (yearFilter === '' || cardYear === yearFilter);
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.5s ease-out forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+<style>
+/* Définition de l'animation de chargement */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Appliquer l'animation à la grille de voitures */
+.cars-grid {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+</style>
+{% endblock %}
+{% endblock %}

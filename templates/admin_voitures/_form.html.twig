@@ -1,0 +1,78 @@
+{# Template du formulaire d'ajout/modification de voiture #}
+{{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'class': 'modern-form'}}) }}
+    {# Boucle sur les champs du formulaire #}
+    {% for field in form.children %}
+        {# Exclusion du token CSRF #}
+        {% if field.vars.name != '_token' %}
+            <div class="form-group">
+                {{ form_label(field) }}
+                
+                {# Gestion spécifique des champs d'image #}
+                {% if field.vars.name == 'image' or field.vars.name == 'image2' or field.vars.name == 'image3' %}
+                    {# Afficher l'image existante si elle existe #}
+                    {% set image_path = null %}
+                    {% if field.vars.name == 'image' and voiture is defined and voiture.image %}
+                        {% set image_path = voiture.image %}
+                    {% elseif field.vars.name == 'image2' and voiture is defined and voiture.image2 %}
+                        {% set image_path = voiture.image2 %}
+                    {% elseif field.vars.name == 'image3' and voiture is defined and voiture.image3 %}
+                        {% set image_path = voiture.image3 %}
+                    {% endif %}
+                    
+                    {% if image_path %}
+                        <div class="current-image">
+                            <p>Image actuelle :</p>
+                            <img src="{{ asset('css/images/photoVoit/' ~ image_path) }}" alt="Image actuelle" style="max-width: 200px; max-height: 150px; margin-bottom: 10px;">
+                        </div>
+                    {% endif %}
+                {% endif %}
+                
+                {{ form_widget(field) }}
+                {{ form_errors(field) }}
+                
+                {# Zone de prévisualisation pour les images #}
+                {% if field.vars.name == 'image' or field.vars.name == 'image2' or field.vars.name == 'image3' %}
+                    <div class="image-preview" id="preview-{{ field.vars.name }}">
+                        {# La prévisualisation sera ajoutée par JavaScript #}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    {# Actions du formulaire #}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}
+
+{# Script pour la prévisualisation des images #}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInputs = document.querySelectorAll('input[type="file"]');
+        
+        imageInputs.forEach(input => {
+            input.addEventListener('change', function(e) {
+                const previewId = 'preview-' + input.name;
+                const preview = document.getElementById(previewId);
+                if (preview) {
+                    preview.innerHTML = '';
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxWidth = '200px';
+                            img.style.maxHeight = '150px';
+                            preview.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+        });
+    });
+</script>

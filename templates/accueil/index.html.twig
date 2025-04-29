@@ -1,0 +1,87 @@
+{# Template de la page d'accueil du site BDG #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Accueil - BDG{% endblock %}
+
+{# Feuilles de style spécifiques à la page d'accueil #}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('css/accueil.css')}}">
+{% endblock %}
+
+{# Contenu principal de la page #}
+{% block body %}
+{# Section héro avec l'image principale #}
+<section class="hero-section">
+    <img src="{{ asset('css/images/imgacc.png') }}" alt="BDG Hero Image">
+</section>
+
+{# Boucle pour afficher les 4 premières voitures #}
+{% for voiture in voitures[:4] %}
+<section class="voit">
+    <div class="container">
+        <div class="widget row align-items-center">
+            {# Affichage alterné des éléments pour un meilleur rendu visuel #}
+            {% if loop.index is odd %}
+                <div class="col-md-6">
+                    <span class="nouveaute">Nouveauté</span>
+                    <div class="titre">
+                        <h1>{{ voiture.description }}</h1>
+                    </div>
+                    <div class="description">
+                        <p>Découvrez cette merveille automobile dans tous ses détails.</p>
+                    </div>
+                    <div class="link">
+                        <a href="{{ path('detailVoit', {'id': voiture.id}) }}">Découvrir</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <img src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}">
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-6">
+                    <div class="image-box">
+                        <img src="{{ asset('css/images/photoVoit/' ~ voiture.image) }}" alt="{{ voiture.description }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span class="nouveaute">Nouveauté</span>
+                    <div class="titre">
+                        <h1>{{ voiture.description }}</h1>
+                    </div>
+                    <div class="description">
+                        <p>Découvrez cette merveille automobile dans tous ses détails.</p>
+                    </div>
+                    <div class="link">
+                        <a href="{{ path('detailVoit', {'id': voiture.id}) }}">Découvrir</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+{# Script pour ajouter la classe 'visible' aux éléments de la page lorsqu'ils sont visibles #}
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const widgets = document.querySelectorAll('.widget');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    widgets.forEach(widget => observer.observe(widget));
+});
+</script>
+{% endblock %}
+{% endblock %}

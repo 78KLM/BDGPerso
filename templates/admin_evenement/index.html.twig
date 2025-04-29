@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des Événements{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">Gestion des Événements</h1>
+        <a href="{{ path('app_admin_evenement_new') }}" class="admin-button">
+            <i class="fas fa-plus"></i> Créer un événement
+        </a>
+    </div>
+
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Lieu</th>
+                    <th>Description</th>
+                    <th>Places</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for evenement in evenements %}
+                <tr>
+                    <td>{{ evenement.id }}</td>
+                    <td>
+                        {% if evenement.dateEvent %}
+                            <div>{{ evenement.dateEvent|date('d/m/Y') }}</div>
+                            <div style="color: #f4d03f;">{{ evenement.dateEvent|date('H:i') }}</div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div><strong>{{ evenement.ville }}</strong></div>
+                        <div>{{ evenement.rue }}</div>
+                        <div>{{ evenement.cp }}</div>
+                    </td>
+                    <td>{{ evenement.description }}</td>
+                    <td>
+                        <span class="{% if evenement.places > 10 %}text-success{% elseif evenement.places > 0 %}text-warning{% else %}text-danger{% endif %}">
+                            {{ evenement.places }} places
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{{ path('app_admin_evenement_show', {'id': evenement.id}) }}" class="action-button show">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_admin_evenement_edit', {'id': evenement.id}) }}" class="action-button edit">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">Aucun événement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .action-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .action-button i {
+        margin-right: 5px;
+    }
+    
+    .action-button.show {
+        background-color: rgba(52, 152, 219, 0.2);
+        color: #3498db;
+        border: 1px solid rgba(52, 152, 219, 0.3);
+    }
+    
+    .action-button.edit {
+        background-color: rgba(244, 208, 63, 0.2);
+        color: #f4d03f;
+        border: 1px solid rgba(244, 208, 63, 0.3);
+    }
+    
+    .action-button.show:hover {
+        background-color: rgba(52, 152, 219, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .action-button.edit:hover {
+        background-color: rgba(244, 208, 63, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .text-success {
+        color: #2ecc71;
+        font-weight: bold;
+    }
+    
+    .text-warning {
+        color: #f39c12;
+        font-weight: bold;
+    }
+    
+    .text-danger {
+        color: #e74c3c;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

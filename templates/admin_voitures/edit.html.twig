@@ -1,0 +1,38 @@
+{# Template de la page de modification d'une voiture #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Modification Voitures{% endblock %}
+
+{# Feuilles de style spécifiques #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edit-form-modern.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{# Contenu principal de la page #}
+{% block body %}
+    <div class="edit-container">
+        {# En-tête du formulaire #}
+        <div class="form-header">
+            <h1>Modification de la voiture</h1>
+        </div>
+        <div class="form-body">
+            {# Inclusion du formulaire principal #}
+            {{ include('admin_voitures/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            
+            {# Actions disponibles #}
+            <div class="form-actions">
+                {# Bouton de retour à la liste #}
+                <a href="{{ path('app_admin_voitures_index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+                
+                {# Inclusion du formulaire de suppression #}
+                {{ include('admin_voitures/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

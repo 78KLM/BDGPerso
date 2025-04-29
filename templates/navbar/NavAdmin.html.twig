@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+
+<nav class="navbar">
+    <div class="logo-img">
+        <a href="{{ path('app_accueil') }}"><img src="{{asset('css/images/logoacc1.png')}}" class="logo-img"></a>
+    </div>
+    <div class="nav-links">
+        <a href="{{ path('app_accueil') }}" class="nav-item">ACCUEIL</a>
+        <a href="{{ path('app_voitures')}}" class="nav-item">VOITURES</a>
+        <a href="{{ path('app_rasso') }}" class="nav-item">NOS EVENEMENTS</a>
+        <a href="{{ path('app_contact') }}" class="nav-item">CONTACT</a>
+        <p>|</p>
+        <a href="{{ path('app_admin_voitures_index') }}" class="nav-item">Admin Voiture</a>
+        <a href="{{ path('app_admin_evenement_index') }}" class="nav-item">Admin Evenement</a>
+        <a href="{{ path('app_admin_contact_index') }}" class="nav-item">Admin Contact</a>
+    </div>
+    <div class="login-container">
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('app_login') }}" class="login-btn">
+                <i class="fas fa-user-circle fa-2x"></i>
+                <span class="login-greeting">Connexion</span>
+            </a>
+        {% else %}
+            <div class="profile-dropdown" onclick="toggleProfileMenu()">
+                <div class="profile-preview">
+                    <i class="fas fa-user-check fa-2x"></i>
+                    <span class="user-email">{{ app.user.email }}</span>
+                    <i class="fas fa-chevron-down ml-2 profile-chevron"></i>
+                </div>
+                <div class="profile-menu">
+                    <a href="{{ path('app_logout') }}" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {# <div class="menu-toggle" onclick="toggleDropdown()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <div class="dropdown-header" onclick="toggleDropdown()">
+            <i class="fas fa-cog mr-2"></i>
+            Administration
+            <i class="fas fa-chevron-down ml-2 dropdown-chevron"></i>
+        </div>
+        <div class="dropdown-content">
+            <a href="{{ path('app_admin_voitures_index') }}" class="nav-item">
+                <i class="fas fa-car mr-2"></i>
+                Voitures
+            </a>
+            <a href="{{ path('app_admin_evenement_index') }}" class="dropdown-item">
+                <i class="fas fa-calendar mr-2"></i>
+                Evenements
+            </a>
+            <a href="{{ path('app_admin_contact_index') }}" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i>
+                Contacts
+            </a>
+        </div>
+    </div> #}
+</nav>
+
+<script src="{{asset('script/publicNav.js')}}"></script>

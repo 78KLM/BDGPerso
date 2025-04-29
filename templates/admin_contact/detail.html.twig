@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du contact{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    .contact-detail-container {
+        padding: 40px;
+        margin-top: 80px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .contact-detail-header {
+        color: gold;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .contact-detail-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: gold;
+    }
+
+    .contact-detail-card {
+        background-color: rgba(26, 26, 26, 0.7);
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .detail-row {
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 15px;
+    }
+
+    .detail-label {
+        color: gold;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        color: white;
+        font-size: 1.1em;
+    }
+
+    .detail-value.email {
+        color: #4a9eff;
+    }
+
+    .detail-value.date {
+        color: gold;
+        font-weight: bold;
+    }
+
+    .detail-value.message {
+        white-space: pre-wrap;
+        line-height: 1.6;
+    }
+
+    .btn-back {
+        background-color: transparent;
+        color: gold;
+        border: 2px solid gold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .btn-back:hover {
+        background-color: gold;
+        color: black;
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .contact-detail-container {
+            padding: 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="contact-detail-container">
+    <h1 class="contact-detail-header">Détail du message</h1>
+
+    <div class="contact-detail-card">
+        <div class="detail-row">
+            <div class="detail-label">Date</div>
+            <div class="detail-value date">{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i') : '' }}</div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">Nom</div>
+            <div class="detail-value">{{ contact.name }}</div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">Email</div>
+            <div class="detail-value email">{{ contact.email }}</div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">Sujet</div>
+            <div class="detail-value">{{ contact.subject }}</div>
+        </div>
+
+        <div class="detail-row">
+            <div class="detail-label">Message</div>
+            <div class="detail-value message">{{ contact.message }}</div>
+        </div>
+    </div>
+
+    <a href="{{ path('app_admin_contact_index') }}" class="btn-back">Retour à la liste</a>
+</div>
+{% endblock %}

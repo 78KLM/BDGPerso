@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Voiture{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/edit-form-modern.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+{% block body %}
+    <div class="edit-container">
+        <div class="form-header">
+            <h1>Ajouter une nouvelle voiture</h1>   
+        </div>
+        <div class="form-body">
+            {{ include('admin_voitures/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+            
+            <div class="form-actions">
+                <a href="{{ path('app_admin_voitures_index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

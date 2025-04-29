@@ -1,0 +1,35 @@
+/* Fix pour la navbar qui empiète sur le contenu */
+body {
+    padding-top: 100px !important; /* Espace suffisant pour la navbar */
+}
+
+/* Assurer que le contenu des pages admin est bien visible */
+.admin-container {
+    margin-top: 20px;
+}
+
+/* Ajustement pour les formulaires */
+form {
+    margin-top: 20px;
+}
+
+/* Ajustement pour les titres */
+h1 {
+    margin-top: 20px;
+}
+
+/* Assurer que les tables sont bien positionnées */
+.table-container {
+    margin-top: 20px;
+}
+
+/* Style pour les boutons de retour */
+button a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button a:hover {
+    color: inherit;
+    text-decoration: none;
+}

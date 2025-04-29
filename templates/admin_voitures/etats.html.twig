@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nombre de voitures par état{% endblock %}
+
+{% block body %}
+    <h1>Nombre de voitures par état</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>État</th>
+                <th>Nombre de voitures</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for etat in countByEtat %}
+                <tr>
+                    <td>{{ etat.type }}</td>
+                    <td>{{ etat.count }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune voiture trouvée</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

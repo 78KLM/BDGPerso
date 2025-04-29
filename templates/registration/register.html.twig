@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{asset('css/logIn.css')}}">
+<link rel="stylesheet" href="{{ asset('css/admin-fix.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <form class="form" method="post">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1 class="h1">Inscription</h1>
+
+        {{ form_start(registrationForm) }}
+            <label class="label">Email</label>
+            {{ form_widget(registrationForm.email, {
+                'attr': {
+                    'class': 'form-control',
+                    'required': true,
+                    'autofocus': true
+                }
+            }) }}
+
+            <label class="label">Mot de passe</label>
+            {{ form_widget(registrationForm.plainPassword, {
+                'attr': {
+                    'class': 'form-control',
+                    'required': true
+                }
+            }) }}
+
+            <div class="terms-container">
+                {{ form_widget(registrationForm.agreeTerms, {
+                    'attr': {
+                        'class': 'checkbox'
+                    }
+                }) }}
+                {{ form_label(registrationForm.agreeTerms, "J'accepte les conditions d'utilisation", {
+                    'label_attr': {
+                        'class': 'terms-label'
+                    }
+                }) }}
+            </div>
+
+            <button type="submit" class="button">S'inscrire</button>
+
+            <p class="forgot-password">
+                <a href="{{ path('app_login') }}">Déjà inscrit ? Connectez-vous</a>
+            </p>
+        {{ form_end(registrationForm) }}
+    </form>
+</div>
+{% endblock %}
